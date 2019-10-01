@@ -6,12 +6,12 @@ from dash.dependencies import Input, Output, State
 
 ########### Define your variables ######
 
-myheading1='How to use callbacks with multiple inputs'
-tabtitle = 'lightsabers!'
-list_of_colors=['red', 'green', 'blue']
-list_of_numbers=['one', 'two', 'three']
+myheading1='Multiple Inputs'
+tabtitle = 'states'
+population_list=['low population', 'high population']
+area_list=['small area', 'large area']
 sourceurl = 'https://dash.plot.ly/getting-started-part-2'
-githublink = 'https://github.com/austinlasseter/dash-callbacks-multi-input'
+githublink = 'https://github.com/aidanjdm/dash-callbacks-multi-input'
 
 
 ########## Set up the chart
@@ -29,22 +29,20 @@ app.layout = html.Div(children=[
     html.Div([
         html.Div([
             dcc.RadioItems(
-                id='pick-a-color',
+                id='pick-a-pop',
                 options=[
-                        {'label':list_of_colors[0], 'value':list_of_colors[0]},
-                        {'label':list_of_colors[1], 'value':list_of_colors[1]},
-                        {'label':list_of_colors[2], 'value':list_of_colors[2]},
+                        {'label':population_list[0], 'value':population_list[0]},
+                        {'label':population_list[1], 'value':population_list[1]},
                         ],
                 value='choose',
                 ),
         ],className='two columns'),
         html.Div([
             dcc.RadioItems(
-                id='pick-a-number',
+                id='pick-an-area',
                 options=[
-                        {'label':list_of_numbers[0], 'value':list_of_numbers[0]},
-                        {'label':list_of_numbers[1], 'value':list_of_numbers[1]},
-                        {'label':list_of_numbers[2], 'value':list_of_numbers[2]},
+                        {'label':area_list[0], 'value':area_list[0]},
+                        {'label':area_list[1], 'value':area_list[1]},
                         ],
                 value='one',
                 ),
@@ -56,17 +54,17 @@ app.layout = html.Div(children=[
     html.Br(),
     html.A('Code on Github', href=githublink),
     html.Br(),
-    html.A("Data Source", href=sourceurl),
+    html.A("Info on Callbacks", href=sourceurl),
     ]
 )
 
 ########## Define Callback
 
 @app.callback(Output('your_output_here', 'children'),
-              [Input('pick-a-color', 'value'),
-               Input('pick-a-number', 'value')])
-def radio_results(color_you_picked, number_you_picked):
-    image_you_chose=f'{color_you_picked}-{number_you_picked}.jpg'
+              [Input('pick-a-pop', 'value'),
+               Input('pick-an-area', 'value')])
+def radio_results(pop_selection, area_selection):
+    image_you_chose=f'{pop_selection}-{area_selection}.jpg'
     return html.Img(src=app.get_asset_url(image_you_chose), style={'width': 'auto', 'height': 'auto'}),
 
 ############ Deploy
